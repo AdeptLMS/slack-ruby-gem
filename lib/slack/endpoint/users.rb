@@ -91,7 +91,7 @@ module Slack
       #
       # This method lets you set the calling user's manual presence.
       # Consult the presence documentation for more details.
-      #
+
       # @option options [Object] :presence
       #   Either auto or away
       # @see https://api.slack.com/methods/users.setPresence
@@ -101,6 +101,12 @@ module Slack
         throw ArgumentError.new("Required arguments :presence missing") if options[:presence].nil?
         options[:attachments] = options[:attachments].to_json if Hash === options[:attachments]
         post("users.setPresence", options)
+      end
+
+      # TODO: add description
+      def invite_user(options={})
+        options[:attachments] = options[:attachments].to_json if Hash === options[:attachments]
+        post("users.admin.invite", options)
       end
 
     end
